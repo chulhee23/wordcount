@@ -2,15 +2,14 @@
 
 
 <!-- 템플릿태그로 기존에 설정해 두었던 name으로 링크를 걸어준다. -->
-<a href="{%url 'about'%}">
+<a href="{%url 'result'%}">
     about
 </a>
 
-<form action="">
+<form action="{%url 'result'%}">
     <textarea col='40' rows='10' name="fulltext">
     </textarea>
     <br>
-
     <input type='submit' value='count'>
 
 </form>
