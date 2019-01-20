@@ -4,17 +4,36 @@
 </h1>
 <a href="{%url 'home'%}">home으로 돌아가기</a>
 <br>
-<h2>입력한 텍스트</h2>
-<!-- 입력받은 텍스트 -->
-
-<!-- 템플릿변수를 사용해 full이라는 키값을 써준다. -->
-{{full}}
-
-<h2>단어 카운트</h2>
 <hr>
+<h2>입력한 텍스트</h2>
+{{full}}
+<br>
+<hr>
+<h2>단어 카운트</h2>
 <!-- 단어 : 단어가 나온 횟수 -->
-
 {% for word, num in dic %}
-    {{word}} : {{num}}
+    
+    {{word}}:{{num}}
     <br>
 {%endfor%}
+
+<!-- num 순서로 정렬하기. -->
+<hr>
+<h2>오름차순 정렬</h2>
+{% for word, num in sorted_dic %}
+    {{word}}:{{num}}
+    <br>
+{%endfor%}    
+
+<!-- 마침표로 분리하기 -->
+<hr>
+<h2>마침표로 문장 분리하기</h2>
+{% for word, weight in word_weight %}
+    <span> {{word}} </span>
+        
+    {% if weight == 0 %}
+        <br>
+    {% endif %}
+    
+{% endfor %}
+    

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+import operator
 # Create your views here.
 
 def home(request):
@@ -12,16 +12,66 @@ def about(request):
      
 def result(request):
     text = request.GET['fulltext']
+    
+    # word는 리스트자료형으로 넘어간다.
+
     words = text.split()
     # 총 단어수 = list의 길이
 
+    # 빈 딕셔너리 정의
     word_dic = {}
 
     for word in words:
         if word in word_dic:
             word_dic[word]+=1
         else:
-            # add 2 dic
+            # add to dic
             word_dic[word]=1
 
-    return render(request, 'result.html', { 'full':text, 'total':len(words), 'dic' : word_dic.items() } )
+    # 문장으로 구분하기
+    # word안에 마침표가 찍혀있다면 마침표로 br해주겠다.
+    
+    # for word in words:
+    #     word가 마침표 있어??
+    #     그러면 word에서 마침표 제외하고 그 단어 가중치 +1
+    
+    # 출력할 때 가중치가 0과 1로 존재하니까
+    # 1일 경우 <br>태그 추가해주자!
+    word_weight={} #가중치가 포함된 딕셔너리
+    
+    
+    for word in words:
+        if (word.find('.')!=-1): # 마침표가 있는 경우
+            word = word.replace(".", "")
+            word_weight[word] =0
+            
+        else:  # 없는 경우
+            word_weight[word] = 1
+            
+     
+
+    # 내가 추가한 작업
+    # 단어 숫자순 정렬
+
+    # word_dic은 word : num 으로 구성되어있음
+    # operator.itemgetter(1)는 객체의 1번 항목을 받아온다. 
+    sorted_dic = sorted(word_dic.items(), key=operator.itemgetter(1))
+    # sorted(iterable, key, reverse)
+    # param iterable
+
+    # Return a new list containing all items from the iterable in ascending order.
+
+    # A custom key function can be supplied to customize the sort order, and the
+    # reverse flag can be set to request the result in descending order.
+
+
+    i=1
+    return render(request, 'result.html', {
+                                            'full':text, 
+                                            'total':len(words), 
+                                            'dic' : word_dic.items(),
+                                            'sorted_dic' : sorted_dic ,
+                                            'word_weight' : word_weight.items(),
+                                            
+                                            
+                                            })
