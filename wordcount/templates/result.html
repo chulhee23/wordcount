@@ -28,12 +28,15 @@
 <!-- 마침표로 분리하기 -->
 <hr>
 <h2>마침표로 문장 분리하기</h2>
-{% for word, weight in word_weight %}
-    <span> {{word}} </span>
-        
+
+{% for item in word_w %}
+    {% for word, weight in item.items %}
+    {{word}}
     {% if weight == 0 %}
         <br>
     {% endif %}
-    
+    {% endfor %}    
 {% endfor %}
-    
+
+<hr>
+
