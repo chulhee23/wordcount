@@ -32,7 +32,7 @@ def result(request):
     # word안에 마침표가 찍혀있다면 마침표로 br해주겠다.
     
     # 출력할 때 가중치가 0과 1로 존재하니까
-    # 1일 경우 <br>태그 추가해주자!
+    # 0일 경우 <br>태그 추가해주자!
     
     word_w=[] # 딕셔너리를 아이템으로 갖는 리스트
    
@@ -45,7 +45,6 @@ def result(request):
             word_w.append({word : 1})
     
 
-   
     # 단어 숫자순 정렬
 
     # word_dic은 word : num 으로 구성되어있음
@@ -62,7 +61,5 @@ def result(request):
                                             'total':len(words), 
                                             'dic' : word_dic.items(),
                                             'sorted_dic' : sorted_dic ,
-                                            
                                             'word_w' : word_w,
-                                            
                                             })
